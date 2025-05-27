@@ -18,20 +18,24 @@ const getTabelaPrecos = () => {
 50MT    📶  2.750MB 
 60MT    📶  3.300MB
 80MT    📶  4.400MB
-100MT  📶  5.500MB
-180MT  📶  10.000MB
-280MT  📶  15.000MB
-360MT  📶  20.000MB
+100MT   📶  5.500MB
+180MT   📶  10.000MB
+280MT   📶  15.000MB
+360MT   📶  20.000MB
 
+*🗓️SEMANAIS 7DIAS*
+105MT   📶  4.000MB 
+130MT   📶  5.000MB 
+150MT   📶  6.000MB 
+250MT   📶  10.000MB 
 
 *🗓️MENSAL 30DIAS*
- 130MT   📶  5.000MB 
- 150MT   📶  6.100MB
-170MT    📶  7.200MB
-210MT    📶  9.400MB
-260MT    📶  10.500MB
+ 150MT   📶    5.000MB
+170MT    📶    7.200MB
+210MT    📶    9.400MB
+260MT    📶   10.500MB
 520MT    📶   20.000MB
-1150MT  📶   50.250MB
+1150MT   📶   50.250MB
 
 > 🚀 _Conectando pessoas,_
 > 🚀 _compartilhando megabytes!_
