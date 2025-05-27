@@ -1,12 +1,11 @@
 const grupos = [
     {
-        id: "120363252308434038@g.us", // ID do grupo 1
+        id: "120363252308434038@g.us",
         horaFechar: "22:30",
-        horaAbrir: "06:24", // Corrigido
-        
+        horaAbrir: "06:24",
     },
     {
-        id: "120363417514741662@g.us", // ID do grupo 2
+        id: "120363417514741662@g.us",
         horaFechar: "22:40",
         horaAbrir: "06:27",
     },
@@ -15,7 +14,13 @@ const grupos = [
 
 function getHoraAtual() {
     const agora = new Date();
-    return agora.toTimeString().substring(0, 5); // formato "HH:MM"
+    // Formata para horário de Moçambique (UTC+2)
+    return agora.toLocaleTimeString('pt-PT', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'Africa/Maputo'
+    });
 }
 
 async function verificarHorarios(sock) {
@@ -24,16 +29,15 @@ async function verificarHorarios(sock) {
     for (const grupo of grupos) {
         try {
             if (horaAtual === grupo.horaFechar) {
-                await sock.groupSettingUpdate(grupo.id, "announcement"); // Só admins
+                await sock.groupSettingUpdate(grupo.id, "announcement");
                 console.log(`🔒 Grupo ${grupo.id} fechado às ${horaAtual}`);
                 await sock.sendMessage(grupo.id, { text: "🔒 Grupo temporariamente fechado. \n\n *Urgente??* CAll- 848619531" });
             }
 
             if (horaAtual === grupo.horaAbrir) {
-                await sock.groupSettingUpdate(grupo.id, "not_announcement"); // Todos podem
+                await sock.groupSettingUpdate(grupo.id, "not_announcement");
                 console.log(`🔓 Grupo ${grupo.id} aberto às ${horaAtual}`);
-            
-                // Aguarda 2 segundos para garantir que o grupo foi reaberto antes de enviar a mensagem
+
                 setTimeout(async () => {
                     try {
                         await sock.sendMessage(grupo.id, { text: "🔓 Grupo aberto! \n\n podemos ativar para ficar online" });
@@ -42,21 +46,15 @@ async function verificarHorarios(sock) {
                     }
                 }, 2000);
             }
-            
+
         } catch (err) {
             console.error(`Erro ao alterar configurações do grupo ${grupo.id}:`, err);
         }
     }
 }
-function getHoraAtual() {
-    const agora = new Date();
-    const horas = agora.getHours().toString().padStart(2, '0');
-    const minutos = agora.getMinutes().toString().padStart(2, '0');
-    return `${horas}:${minutos}`;
-}
 
 function iniciarAgendamento(sock) {
-    setInterval(() => verificarHorarios(sock), 60 * 1000); // A cada 1 minuto
+    setInterval(() => verificarHorarios(sock), 60 * 1000); // Verifica a cada 1 minuto
 }
 
 module.exports = { iniciarAgendamento };
