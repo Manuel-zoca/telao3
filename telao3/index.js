@@ -16,13 +16,11 @@ const { handleCompra } = require("./handlers/compraHandler");
 const { handleTabela } = require("./handlers/tabelaHandler");
 const { handleTodos } = require("./handlers/todosHandler");
 const { iniciarAgendamento } = require("./handlers/grupoSchedulerHandler");
-const { verificarEnvioTabela } = require('./handlers/tabelaScheduler');
+const { iniciarAgendamentoTabela } = require('./handlers/tabelaScheduler'); // ✅ NOVO
 const { handleMensagemPix } = require('./handlers/pixHandler');
 const { handleComprovanteFoto } = require('./handlers/handleComprovanteFoto');
 const { handleReaction } = require("./handlers/reactionHandler");
 const { handleGroupParticipantsUpdate } = require('./handlers/groupParticipantHandler');
-
-// ✅ Import corrigido
 const { handleAntiLinkMessage } = require('./handlers/antiLink');
 
 let pendingMessages = [];
@@ -53,7 +51,7 @@ async function iniciarBot(deviceName, authFolder) {
     pendingMessages = [];
   };
 
-  setInterval(() => verificarEnvioTabela(sock), 60 * 1000);
+  // ❌ Removido: setInterval(() => verificarEnvioTabela(sock), 60 * 1000);
 
   sock.ev.on("connection.update", async (update) => {
     const { connection, lastDisconnect, qr } = update;
@@ -82,6 +80,7 @@ async function iniciarBot(deviceName, authFolder) {
     } else if (connection === "open") {
       console.log(`✅ Bot conectado no dispositivo: ${deviceName}`);
       iniciarAgendamento(sock);
+      iniciarAgendamentoTabela(sock); // ✅ NOVO AGENDADOR
       await processPendingMessages();
     }
   });
@@ -102,7 +101,6 @@ async function iniciarBot(deviceName, authFolder) {
     const lowerText = messageText.toLowerCase();
 
     try {
-      // ✅ Anti-Link chamado com nome correto
       await handleAntiLinkMessage(sock, msg);
     } catch (err) {
       console.error("❌ Erro no handleAntiLinkMessage:", err.message);
