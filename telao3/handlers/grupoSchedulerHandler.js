@@ -1,4 +1,4 @@
-const grupos = [
+const grups = [
     {
         id: "120363252308434038@g.us",
         horaFechar: "22:30",
