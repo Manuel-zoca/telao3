@@ -15,8 +15,6 @@ const { handleBan } = require("./handlers/banHandler");
 const { handleCompra } = require("./handlers/compraHandler");
 const { handleTabela } = require("./handlers/tabelaHandler");
 const { handleTodos } = require("./handlers/todosHandler");
-const { iniciarAgendamento } = require("./handlers/grupoSchedulerHandler");
-const { iniciarAgendamentoTabela } = require('./handlers/tabelaScheduler'); // ✅ NOVO
 const { handleMensagemPix } = require('./handlers/pixHandler');
 const { handleComprovanteFoto } = require('./handlers/handleComprovanteFoto');
 const { handleReaction } = require("./handlers/reactionHandler");
@@ -79,8 +77,6 @@ async function iniciarBot(deviceName, authFolder) {
       setTimeout(() => iniciarBot(deviceName, authFolder), 3000);
     } else if (connection === "open") {
       console.log(`✅ Bot conectado no dispositivo: ${deviceName}`);
-      iniciarAgendamento(sock);
-      iniciarAgendamentoTabela(sock); // ✅ NOVO AGENDADOR
       await processPendingMessages();
     }
   });
