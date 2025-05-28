@@ -1,3 +1,4 @@
+
 // Arquivo tabelaHandler.js
 
 /**
