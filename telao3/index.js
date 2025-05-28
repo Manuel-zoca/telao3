@@ -18,7 +18,6 @@ const { handleTodos } = require("./handlers/todosHandler");
 const { handleMensagemPix } = require('./handlers/pixHandler');
 const { handleComprovanteFoto } = require('./handlers/handleComprovanteFoto');
 const { handleReaction } = require("./handlers/reactionHandler");
-const { handleGroupParticipantsUpdate } = require('./handlers/groupParticipantHandler');
 const { handleAntiLinkMessage } = require('./handlers/antiLink');
 
 let pendingMessages = [];
@@ -152,10 +151,6 @@ async function iniciarBot(deviceName, authFolder) {
     }
   });
 
-  sock.ev.on("group-participants.update", async (update) => {
-    console.log("🔔 Evento de grupo detectado:", update);
-    await handleGroupParticipantsUpdate(sock, update);
-  });
 
   sock.ev.on("group-participants.update", async ({ id, participants, action }) => {
     if (action === "add") {
