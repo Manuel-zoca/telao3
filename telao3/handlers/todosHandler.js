@@ -33,7 +33,26 @@ const handleTodos = async (sock, msg) => {
             const participants = groupMetadata.participants.map(p => p.id); // Lista de IDs dos participantes
 
             // Mensagem inicial com menção a todos os participantes
-            const mensagemInicial = `📢j@${sender.split('@')[0]}.`;
+            const mensagemInicial = `💎 COMBO VIP DO DIA 💎
+🔥 Pacotes Diários (Validade: 24h)
+📱 1GB = 17MT
+📱 3GB = 50MT
+📱 5GB = 85MT
+📱 10GB = 170MT
+🎁 Oferta do Dia: Leve 6GB por apenas 100MT!
+
+📅 Pacotes Mensais (Validade: 30 dias)
+📡 5GB = 130MT
+📡 10GB = 220MT
+📡 20GB = 430MT
+📡 50GB = 1050MT
+🎁 Bônus: A cada pacote mensal, ativação incluída + 300MB extra!
+
+✅ Entrega imediata
+⏳ Promoção válida só HOJE para clientes VIP
+📲 Chama no privado e ativa já!
+
+@${sender.split('@')[0]}.`;
 
             // Envia a mensagem inicial com menções
             await sock.sendMessage(from, {
